@@ -1,0 +1,37 @@
+<html>
+
+<head>
+     {% if weather is defined %}
+    <title>Weather for {{ weather.location.city }}, {{ weather.location.region }}</title>
+     {% else %}
+    <title>Weather Flask</title>
+     {% endif %}
+</head>
+
+<body>
+    <h1>Enter your Location</h1>
+    <form action="/" method="get">
+        <label for="location">Location</label>
+        {% if location is defined %}
+        <input type="text" name="location" value="{{ location }}">
+        {% else %}
+        <input type="text" name="location">
+        {% endif %}
+        <input type="submit" value="Get Weather">
+    </form>
+     {% if weather is defined %}
+    <h2>{{ weather.location.city }}, {{ weather.location.region }}</h2>
+    <ul>
+        {% for forecast in weather.item.forecast %}
+        <li>
+            {{ forecast.day}} - {{ forecast.text }}, low: {{ forecast.low }}{{ weather.units.temperature }}, high: {{ forecast.high }}{{
+            weather.units.temperature }}
+        </li>
+        {% endfor %}
+    </ul>
+    <label>Raw JSON:</label>
+    <pre>{{ weather_json }}</pre>
+    {% endif %}
+</body>
+
+</html>
